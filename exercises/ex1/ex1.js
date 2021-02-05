@@ -64,6 +64,17 @@ function getFile(file) {
 				output(`Previous file not loaded... storing ${file}`);
 			}
 		}
+
+		if (
+			files["file1"] &&
+			files["file1"].hasRendered &&
+			files["file2"] &&
+			files["file2"].hasRendered &&
+			files["file3"] &&
+			files["file3"].hasRendered
+		) {
+			output("Complete!");
+		}
 	});
 }
 
