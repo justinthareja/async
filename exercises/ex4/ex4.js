@@ -34,3 +34,19 @@ function getFile(file) {
 // is done.
 
 // ???
+var files = ["file1", "file2", "file3"];
+
+files
+	.map(getFile)
+	.reduce(function reducer(acc, cur) {
+		return acc
+				.then(output)
+				.then(function() {
+					return cur;
+				});
+	})
+	.then(output)
+	.then(function() {
+		output("complete");
+	})
+
