@@ -34,16 +34,16 @@ var p1 = getFile("file1");
 var p2 = getFile("file2");
 var p3 = getFile("file3");
 
-p1.then(function (file1) {
-	output(file1);
+p1
+.then(output)
+.then(function() {
 	return p2;
 })
-.then(function (file2) {
-	output(file2);
+.then(output)
+.then(function() {
 	return p3;
 })
-.then(function (file3) {
-	output(file3);
-	output("Complete")
-})
-.catch(output)
+.then(output)
+.then(function() {
+	output("complete")
+});
