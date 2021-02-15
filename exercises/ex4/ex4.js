@@ -36,17 +36,35 @@ function getFile(file) {
 // ???
 var files = ["file1", "file2", "file3"];
 
+// ORIG ANSWER:
+// files
+// 	.map(getFile)
+// 	.reduce(function reducer(acc, cur) {
+// 		return acc
+// 				.then(output)
+// 				.then(function() {
+// 					return cur;
+// 				});
+// 	})
+// 	.then(output)
+// 	.then(function() {
+// 		output("complete");
+// 	})
+
+// FROM VIDEO:
+
 files
 	.map(getFile)
-	.reduce(function reducer(acc, cur) {
-		return acc
-				.then(output)
-				.then(function() {
-					return cur;
-				});
-	})
-	.then(output)
-	.then(function() {
-		output("complete");
-	})
-
+	.reduce(
+		function combine(chain, pr) {
+			return chain
+				.then(function chainPr() {
+					return pr;
+				})
+				.then(output);
+		}, 
+		Promise.resolve()
+	)
+	.then(function logDone() {
+		output("done");
+	});
