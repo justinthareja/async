@@ -19,11 +19,11 @@ function output(text) {
 
 // **************************************
 
-function getFile(file) {
-	return ASQ(function(done){
-		fakeAjax(file,done);
-	});
-}
+// function getFile(file) {
+// 	return ASQ(function(done){
+// 		fakeAjax(file,done);
+// 	});
+// }
 
 // Request all files at once in
 // "parallel" via `getFile(..)`.
@@ -33,3 +33,21 @@ function getFile(file) {
 // is done.
 
 // ???
+
+// use async await instead
+function getFile(file) {
+	return new Promise(function (resolve, reject) {
+		fakeAjax(file, resolve);
+	});
+}
+
+const files = ["file1", "file2", "file2"];
+
+
+
+files
+	.map(getFile)
+	.reduce(async function combine(chain, pr) {
+		output(await chain);
+		return pr;
+	}, Promise.resolve)

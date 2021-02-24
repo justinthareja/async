@@ -21,7 +21,23 @@ function output(text) {
 
 function getFile(file) {
 	// what do we do here?
+	return new Promise(function resolver(resolve, reject) {
+		fakeAjax(file, resolve);
+	});
 }
 
 // request an array of files at once in "parallel"
 // ???
+
+async function init() {
+	const p1 = getFile("file1");
+	const p2 = getFile("file2");
+	const p3 = getFile("file3");
+
+	output(await p1);
+	output(await p2);
+	output(await p3);
+	output("done");
+}
+
+init();
